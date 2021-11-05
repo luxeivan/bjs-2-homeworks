@@ -14,13 +14,13 @@ function solveEquation(a, b, c) {
 }
 
 function calculateTotalMortgage(percent, contribution, amount, date) {
-  if(typeof(percent) != "number"){
+  if (typeof (percent) != "number") {
     return `Параметр "Процентная ставка" содержит неправильное значение "${percent}"`
   }
-  if(typeof(contribution) != "number"){
+  if (typeof (contribution) != "number") {
     return `Параметр "Начальный взнос" содержит неправильное значение "${contribution}"`
   }
-  if(typeof(amount) != "number"){
+  if (typeof (amount) != "number") {
     return `Параметр "Общая стоимость" содержит неправильное значение "${amount}"`
   }
   let totalAmount,
@@ -29,9 +29,9 @@ function calculateTotalMortgage(percent, contribution, amount, date) {
     total_months = Math.floor((date - nowDate) / 2592000000),
     bodyCredit = amount - contribution;
   payMonth = bodyCredit * ((percent / 1200) + (percent / 1200) / (((1 + (percent / 1200)) ** total_months) - 1)),
-  totalAmount = payMonth*total_months;
-  console.log(payMonth.toFixed(2),totalAmount.toFixed(2));
-totalAmount = Number(totalAmount.toFixed(2));
+    totalAmount = payMonth * total_months;
+  console.log(payMonth.toFixed(2), totalAmount.toFixed(2));
+  totalAmount = Number(totalAmount.toFixed(2));
   // код для задачи №2 писать здесь
   return totalAmount;
 }
