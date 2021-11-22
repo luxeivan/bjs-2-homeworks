@@ -79,7 +79,7 @@ class Library {
     for (let i = 0; i < this.books.length; i++) {
       if (this.books[i].name == bookName) {
         giveBook = this.books[i];
-        this.books.splice(i);
+        this.books.splice(i,1);
       }
     }
     return giveBook;
