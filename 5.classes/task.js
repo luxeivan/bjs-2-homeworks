@@ -85,3 +85,49 @@ class Library {
     return giveBook;
   }
 }
+
+class Student {
+  constructor(name) {
+    this.name = name;
+    this.marksForSubjects = {};
+  }
+  addMark(mark, subject) {
+    if (mark <= 5 && mark >= 1) {
+      if (!this.marksForSubjects[subject]) {
+        this.marksForSubjects[subject] = [];
+      }
+      this.marksForSubjects[subject].push(mark);
+    } else {
+      console.log("Ошибка, оценка должна быть числом от 1 до 5");
+    }
+  }
+  getAverageBySubject(subject) {
+    if (this.marksForSubjects.hasOwnProperty(subject)) {
+      let sum = 0;
+      for (let i = 0; i < this.marksForSubjects[subject].length; i++) {
+        sum += this.marksForSubjects[subject][i];
+      }
+      return sum / this.marksForSubjects[subject].length;
+    } else {
+      console.log("Несуществующий предмет");
+    }
+  }
+  getAverage() {
+    let sum = 0,
+      marksLenght = 0;
+
+    for (let key in this.marksForSubjects) {
+      console.log(key);
+      this.marksForSubjects[key].forEach((element) => {
+        sum += element;
+        marksLenght++;
+      });
+    }
+
+    return sum / marksLenght;
+  }
+  exclude(reason) {
+    delete this.marksForSubjects;
+    this.excluded = reason;
+  }
+}
