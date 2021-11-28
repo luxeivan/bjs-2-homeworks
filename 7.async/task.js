@@ -16,11 +16,7 @@ class AlarmClock {
         let longStart = this.alarmCollection.length;
         this.alarmCollection = this.alarmCollection.filter((elem) => elem.id != id)
         let longEnd = this.alarmCollection.length;
-        if (longStart != longEnd) {
-            return true;
-        } else {
-            return false;
-        }
+        return longStart == longEnd;
     }
     getCurrentFormattedTime() {
         let current = new Date();
