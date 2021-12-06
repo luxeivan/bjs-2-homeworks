@@ -19,31 +19,35 @@ function cachingDecoratorNew(func) {
 
 function debounceDecoratorNew(func, ms) {
   // Ваш код
-  let timeout;
-  return function (...args) {
-    if (!timeout) {
-      func.apply(this, args);
-      timeout = setTimeout(() => {
-        timeout = null;
-      }, ms);
+  let timeout = null;
+  function wrapper(...args) {
+    if(!timeout){
+      func(...args);
     }
-  };
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func(...args);
+    }, ms);
+  }
+  return wrapper;
 }
+
 
 function debounceDecorator2(func, ms) {
   // Ваш код
-  let timeout,
-    count = 0;
-  return function (...args) {
-    count++;
-    console.log(count);
-    if (!timeout) {
-      func.apply(this, args);
-      timeout = setTimeout(() => {
-        timeout = null;
-      }, ms);
+  let timeout = null;
+  function wrapper(...args) {
+    wrapper.count++;
+    if(!timeout){
+      func(...args);
     }
-  };
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func(...args);
+    }, ms);
+  }
+  wrapper.count = 0;
+  return wrapper;
 }
 
 const sendSignal = () => console.log("Сигнал отправлен");
@@ -55,3 +59,4 @@ setTimeout(upgradedSendSignal, 1200); // проигнорировано так �
 setTimeout(upgradedSendSignal, 2300); // проигнорировано так как времени от последнего вызова прошло: 2300-1200=1100 (1100 < 2000)
 setTimeout(upgradedSendSignal, 4400); // Сигнал отправлен так как времени от последнего вызова прошло: 4400-2300=2100 (2100 > 2000)
 setTimeout(upgradedSendSignal, 4500); // Сигнал будет отправлен, так как последний вызов debounce декоратора (спустя 4500 + 2000 = 6500) 6,5с
+setTimeout(upgradedSendSignal, 5500); 
