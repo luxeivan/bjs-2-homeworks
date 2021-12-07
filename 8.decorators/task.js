@@ -6,14 +6,13 @@ function cachingDecoratorNew(func) {
       index = cache.findIndex((item) => item.hasOwnProperty(hash));
     if (index >= 0) {
       return "Из кэша: " + cache[index][hash];
-    } else {
-      let result = func(...args);
-      cache.push({ [hash]: result });
-      if (cache.length > 5) {
-        cache.shift();
-      }
-      return "Вычисляем: " + result;
     }
+    let result = func(...args);
+    cache.push({ [hash]: result });
+    if (cache.length > 5) {
+      cache.shift();
+    }
+    return "Вычисляем: " + result;
   };
 }
 
