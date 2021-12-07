@@ -20,7 +20,7 @@ function debounceDecoratorNew(func, ms) {
   // Ваш код
   let timeout = null;
   function wrapper(...args) {
-    if(!timeout){
+    if (!timeout) {
       func(...args);
     }
     clearTimeout(timeout);
@@ -31,18 +31,18 @@ function debounceDecoratorNew(func, ms) {
   return wrapper;
 }
 
-
 function debounceDecorator2(func, ms) {
   // Ваш код
   let timeout = null;
   function wrapper(...args) {
-    wrapper.count++;
-    if(!timeout){
+    if (!timeout) {
       func(...args);
+      wrapper.count++;
     }
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       func(...args);
+      wrapper.count++;
     }, ms);
   }
   wrapper.count = 0;
@@ -58,4 +58,4 @@ setTimeout(upgradedSendSignal, 1200); // проигнорировано так �
 setTimeout(upgradedSendSignal, 2300); // проигнорировано так как времени от последнего вызова прошло: 2300-1200=1100 (1100 < 2000)
 setTimeout(upgradedSendSignal, 4400); // Сигнал отправлен так как времени от последнего вызова прошло: 4400-2300=2100 (2100 > 2000)
 setTimeout(upgradedSendSignal, 4500); // Сигнал будет отправлен, так как последний вызов debounce декоратора (спустя 4500 + 2000 = 6500) 6,5с
-setTimeout(upgradedSendSignal, 5500); 
+setTimeout(upgradedSendSignal, 5500);
